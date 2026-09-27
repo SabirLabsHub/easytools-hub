@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EasyTools Hub — Free Online Tools & Calculators</title>
+<link rel="canonical" href="https://example.com/">
+<meta property="og:title" content="EasyTools Hub — Free Online Tools">
+<meta property="og:description" content="Fast, simple online calculators, business tools, text utilities and file tools.">
+<meta property="og:type" content="website">
+<meta name="description" content="Free online calculators, business tools, text utilities, image tools and everyday productivity tools. Fast and simple to use.">
+<meta name="keywords" content="free online tools, calculator, invoice maker, profit calculator, percentage calculator, image compressor, text tools">
+<meta name="robots" content="index,follow">
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#667085;--line:#e4e7ec;--primary:#635bff;--soft:#efedff;--good:#087443}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,system-ui,Arial,sans-serif;color:var(--text)}
+header{background:linear-gradient(135deg,#635bff,#8b5cf6);color:#fff;padding:34px 18px 42px}
+.wrap{max-width:1050px;margin:auto}.brand{font-size:28px;font-weight:800}.tag{opacity:.9;margin-top:7px}
+.search{margin:24px auto 0;max-width:680px}.search input{width:100%;padding:15px 18px;border:0;border-radius:14px;font-size:16px;outline:0}
+main{max-width:1050px;margin:-18px auto 40px;padding:0 16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 5px 18px #1720330b}
+.card h2{font-size:19px;margin:0 0 6px}.desc{color:var(--muted);font-size:14px;margin-bottom:17px}
+label{display:block;font-size:13px;font-weight:700;margin:10px 0 6px}input,textarea,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px;background:#fff}textarea{min-height:80px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{margin-top:12px;border:0;border-radius:10px;padding:11px 14px;background:var(--primary);color:#fff;font-weight:750;cursor:pointer}.btn.alt{background:#eef0f5;color:var(--text)}.result{margin-top:13px;padding:12px;border-radius:10px;background:var(--soft);font-weight:750}
+.tool.hidden{display:none}.dark{--bg:#10131a;--card:#181c25;--text:#f4f5f7;--muted:#a7afbf;--line:#303746}.dark input,.dark textarea,.dark select{background:#11151d;color:#fff}.tip{font-size:12px;color:var(--muted);margin-top:8px}footer{text-align:center;color:var(--muted);padding:25px;font-size:13px}
+.invoice-output{white-space:pre-wrap;background:#fafafa;border:1px dashed var(--line);padding:12px;border-radius:10px;margin-top:12px}
+canvas{max-width:100%;border:1px solid var(--line);border-radius:10px;margin-top:12px}
+@media(max-width:560px){.row{grid-template-columns:1fr}.brand{font-size:24px}}
+details{border-top:1px solid var(--line);padding:12px 0}summary{cursor:pointer;font-weight:700}details p{color:var(--muted)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="brand">⚡ EasyTools Hub</div>
+<div class="tag">Simple, useful tools for everyday work — free to start.</div>
+<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+<button class="btn" style="margin:0;background:#fff;color:#635bff" onclick="filterCat('all')">All</button>
+<button class="btn" style="margin:0" onclick="filterCat('business')">Business</button>
+<button class="btn" style="margin:0" onclick="filterCat('calculators')">Calculators</button>
+<button class="btn" style="margin:0" onclick="filterCat('text')">Text</button>
+<button class="btn" style="margin:0" onclick="filterCat('files')">Files</button>
+<button class="btn" style="margin:0;background:#ffffff22" onclick="document.body.classList.toggle('dark')">☾ Theme</button>
+</div>
+<div class="search"><input id="search" placeholder="Search tools… e.g. age, profit, image, invoice"></div>
+</div></header>
+
+<nav style="background:#fff;border-bottom:1px solid #e4e7ec;padding:12px 16px;position:sticky;top:0;z-index:5">
+<div class="wrap" style="display:flex;gap:10px;align-items:center;justify-content:space-between">
+<div style="font-weight:800">EasyTools Hub</div>
+<div style="display:flex;gap:7px;flex-wrap:wrap">
+<button class="btn alt" style="margin:0" onclick="showPage('home')">Tools</button>
+<button class="btn alt" style="margin:0" onclick="showPage('about')">About</button>
+<button class="btn alt" style="margin:0" onclick="showPage('privacy')">Privacy</button>
+<button class="btn alt" style="margin:0" onclick="showPage('contact')">Contact</button>
+</div></div></nav>
+<div id="pageInfo" style="display:none;max-width:900px;margin:25px auto;padding:0 18px">
+<section id="aboutPage" class="card" style="display:none"><h2>About EasyTools Hub</h2><p>EasyTools Hub is designed to provide simple browser-based tools for everyday tasks, business calculations, writing and file utilities.</p><p>Our goal is to keep common tasks fast, simple and accessible.</p></section>
+<section id="privacyPage" class="card" style="display:none"><h2>Privacy</h2><p>Many tools process information directly in your browser. Do not enter sensitive or confidential information into any tool unless you understand how it is processed.</p><p>This starter version does not include user accounts or payment processing.</p></section>
+<section id="contactPage" class="card" style="display:none"><h2>Contact</h2><p>For feedback, partnerships or tool requests, add your business email here before publishing the site.</p><div class="result">Email: your-email@example.com</div></section>
+</div>
+<main id="homePage">
+<section class="card" style="margin-bottom:16px;text-align:center;background:linear-gradient(135deg,#f3f1ff,#fff)">
+<h2>✨ Free tools for everyday work</h2>
+<p class="desc">Use our calculators, business tools, text utilities and file helpers in one place.</p>
+<div class="tip">Future monetization area: advertisements and optional premium tools can be added here.</div>
+</section>
+<div class="grid" id="tools">
+<section class="card tool" data-cat="calculators" data-name="unit converter length km miles kg lb">
+<h2>📏 Unit Converter</h2><div class="desc">Convert common length and weight units.</div>
+<div class="row"><div><label>Value</label><input id="unitVal" type="number"></div>
+<div><label>Conversion</label><select id="unitType"><option value="kmmi">km → miles</option><option value="mikm">miles → km</option><option value="kglb">kg → lb</option><option value="lbkg">lb → kg</option></select></div></div>
+<button class="btn" onclick="unitCalc()">Convert</button><div id="unitResult" class="result">Enter a value.</div></section>
+
+<section class="card tool" data-cat="calculators" data-name="time calculator">
+<h2>⏱️ Time Calculator</h2><div class="desc">Add hours and minutes.</div>
+<div class="row"><div><label>Hours</label><input id="hrs" type="number"></div><div><label>Minutes</label><input id="mins" type="number"></div></div>
+<button class="btn" onclick="timeCalc()">Calculate</button><div id="timeResult" class="result">Enter values above.</div></section>
+
+<section class="card tool" data-cat="text" data-name="remove spaces text cleaner">
+<h2>🧹 Text Cleaner</h2><div class="desc">Remove extra spaces and blank lines from text.</div>
+<textarea id="cleanText" placeholder="Paste text here…"></textarea>
+<button class="btn" onclick="cleanTextDo()">Clean Text</button></section>
+
+<section class="card tool" data-cat="business" data-name="markup calculator pricing">
+<h2>💵 Markup Calculator</h2><div class="desc">Set a selling price from cost and markup percentage.</div>
+<div class="row"><div><label>Cost</label><input id="markCost" type="number"></div><div><label>Markup %</label><input id="markPct" type="number"></div></div>
+<button class="btn" onclick="markupCalc()">Calculate</button><div id="markResult" class="result">Enter values above.</div></section>
+
+<section class="card tool" data-cat="files" data-name="text download">
+<h2>📄 Text File Maker</h2><div class="desc">Create and download a plain text file directly in your browser.</div>
+<textarea id="fileText" placeholder="Write something…"></textarea>
+<button class="btn" onclick="downloadText()">Download .txt</button></section>
+
+<section class="card tool" data-cat="calculators" data-name="date difference calculator">
+<h2>📅 Date Difference</h2><div class="desc">Find the number of days between two dates.</div>
+<div class="row"><div><label>Start</label><input id="dateA" type="date"></div><div><label>End</label><input id="dateB" type="date"></div></div>
+<button class="btn" onclick="dateDiff()">Calculate</button><div id="dateResult" class="result">Choose dates.</div></section>
+
+
+
+<section class="card tool" data-cat="calculators" data-name="age calculator date age birthday">
+<h2>🎂 Age Calculator</h2><div class="desc">Calculate your exact age from your date of birth.</div>
+<label>Date of birth</label><input id="dob" type="date"><button class="btn" onclick="ageCalc()">Calculate age</button>
+<div id="ageResult" class="result">Your result will appear here.</div></section>
+
+<section class="card tool" data-cat="business" data-name="profit calculator business profit margin">
+<h2>📈 Profit Calculator</h2><div class="desc">Calculate profit, loss and margin for a product or business sale.</div>
+<div class="row"><div><label>Cost</label><input id="cost" type="number" min="0" step="0.01"></div>
+<div><label>Sale price</label><input id="sale" type="number" min="0" step="0.01"></div></div>
+<button class="btn" onclick="profitCalc()">Calculate</button><div id="profitResult" class="result">Enter values above.</div></section>
+
+<section class="card tool" data-cat="business" data-name="invoice invoice maker business receipt">
+<h2>🧾 Invoice Maker</h2><div class="desc">Create a clean invoice and print/save it as PDF from your browser.</div>
+<div class="row"><div><label>Business</label><input id="biz" placeholder="My Business"></div><div><label>Customer</label><input id="cust" placeholder="Customer name"></div></div>
+<label>Items (one per line: item, quantity, price)</label>
+<textarea id="items" placeholder="Logo Design, 1, 50&#10>Website, 1, 150"></textarea>
+<button class="btn" onclick="makeInvoice()">Create invoice</button><button class="btn alt" onclick="window.print()">Print / Save PDF</button>
+<div id="invoiceResult" class="invoice-output">Invoice preview will appear here.</div></section>
+
+<section class="card tool" data-cat="files" data-name="image compressor image resize compress">
+<h2>🖼️ Image Compressor</h2><div class="desc">Compress an image in your browser. Your selected file stays on your device.</div>
+<input id="imgFile" type="file" accept="image/*"><label>Quality</label><input id="quality" type="range" min=".1" max="1" step=".05" value=".7">
+<button class="btn" onclick="compressImage()">Compress image</button><div id="imgResult" class="result">Choose an image.</div></section>
+
+<section class="card tool" data-cat="calculators" data-name="percentage calculator discount">
+<h2>％ Percentage Calculator</h2><div class="desc">Find a percentage of a number quickly.</div>
+<div class="row"><div><label>Number</label><input id="pctNum" type="number"></div><div><label>Percentage</label><input id="pct" type="number"></div></div>
+<button class="btn" onclick="pctCalc()">Calculate</button><div id="pctResult" class="result">Enter values above.</div></section>
+
+<section class="card tool" data-cat="calculators" data-name="discount calculator sale">
+<h2>🏷️ Discount Calculator</h2><div class="desc">Calculate sale price and how much you save.</div>
+<div class="row"><div><label>Original price</label><input id="orig" type="number"></div><div><label>Discount %</label><input id="disc" type="number"></div></div>
+<button class="btn" onclick="discCalc()">Calculate</button><div id="discResult" class="result">Enter values above.</div></section>
+
+<section class="card tool" data-cat="text" data-name="word counter text counter">
+<h2>🔤 Word & Character Counter</h2><div class="desc">Useful for posts, articles, applications and assignments.</div>
+<textarea id="counterText" placeholder="Paste or type your text…"></textarea>
+<div id="counterResult" class="result">0 words · 0 characters</div></section>
+
+<section class="card tool" data-cat="business" data-name="tax calculator sales tax vat">
+<h2>🧮 Tax Calculator</h2><div class="desc">Calculate tax amount and final price.</div>
+<div class="row"><div><label>Amount</label><input id="taxAmt" type="number"></div><div><label>Tax %</label><input id="taxPct" type="number"></div></div>
+<button class="btn" onclick="taxCalc()">Calculate</button><div id="taxResult" class="result">Enter values above.</div></section>
+
+<section class="card tool" data-cat="calculators" data-name="loan calculator emi">
+<h2>🏦 Loan / EMI Calculator</h2><div class="desc">Estimate monthly payment for a simple fixed-rate loan.</div>
+<div class="row"><div><label>Loan amount</label><input id="loan" type="number"></div><div><label>Annual interest %</label><input id="rate" type="number" step=".01"></div></div>
+<label>Term (months)</label><input id="months" type="number">
+<button class="btn" onclick="emiCalc()">Calculate EMI</button><div id="emiResult" class="result">Enter values above.</div></section>
+
+<section class="card tool" data-cat="text" data-name="case converter uppercase lowercase text">
+<h2>🔠 Case Converter</h2><div class="desc">Convert text to uppercase, lowercase or title case.</div>
+<textarea id="caseText" placeholder="Type or paste text…"></textarea>
+<button class="btn" onclick="caseDo('upper')">UPPERCASE</button>
+<button class="btn alt" onclick="caseDo('lower')">lowercase</button>
+<button class="btn alt" onclick="caseDo('title')">Title Case</button></section>
+
+<section class="card tool" data-cat="calculators" data-name="bmi calculator health">
+<h2>⚖️ BMI Calculator</h2><div class="desc">Calculate BMI from height and weight. General informational use only.</div>
+<div class="row"><div><label>Weight (kg)</label><input id="weight" type="number"></div><div><label>Height (cm)</label><input id="height" type="number"></div></div>
+<button class="btn" onclick="bmiCalc()">Calculate BMI</button><div id="bmiResult" class="result">Enter values above.</div></section>
+
+<section class="card tool" data-cat="files" data-cat="files" data-name="qr code generator qr">
+<h2>🔳 QR Code</h2><div class="desc">Enter a URL and open the built-in QR service in a new tab.</div>
+<input id="qrText" placeholder="https://example.com">
+<button class="btn" onclick="makeQR()">Generate QR</button>
+<div class="tip">QR generation uses a web service when you click the button.</div></section>
+
+</div>
+</main>
+
+<section class="card" style="max-width:1050px;margin:0 auto 20px">
+<h2>❓ Frequently Asked Questions</h2>
+<details><summary>Are EasyTools Hub tools free?</summary><p>Yes. The starter version is designed around free browser-based tools.</p></details>
+<details><summary>Do I need an account?</summary><p>No account is required for the current prototype.</p></details>
+<details><summary>Can I use these tools on my phone?</summary><p>Yes. The interface is responsive and designed for mobile and desktop screens.</p></details>
+<details><summary>Will there be premium tools?</summary><p>Premium features can be added later without removing the free tools.</p></details>
+</section>
+<section class="card" style="max-width:1050px;margin:0 auto 20px;text-align:center">
+<h2>🚀 Ready for publishing</h2>
+<p class="desc">Before going live, replace the placeholder domain and contact email, connect analytics, add your chosen ad network, and test every tool on mobile.</p>
+<div class="result">Monetization area: Ads + optional Premium tools</div>
+</section>
+<footer>EasyTools Hub v3 · Free everyday tools. Premium features can be added later.</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function ageCalc(){let v=$('dob').value;if(!v)return;$d=new Date(v+'T00:00:00');let t=new Date();let y=t.getFullYear()-$d.getFullYear(),m=t.getMonth()-$d.getMonth(),d=t.getDate()-$d.getDate();if(d<0){m--;d+=new Date(t.getFullYear(),t.getMonth(),0).getDate()}if(m<0){y--;m+=12}$('ageResult').textContent=`${y} years, ${m} months, ${d} days old.`}
+function profitCalc(){let c=+$('cost').value,s=+$('sale').value,p=s-c,margin=s?((p/s)*100):0;$('profitResult').textContent=p>=0?`Profit: ${p.toFixed(2)} · Margin: ${margin.toFixed(2)}%`:`Loss: ${Math.abs(p).toFixed(2)}`}
+function pctCalc(){let n=+$('pctNum').value,p=+$('pct').value;$('pctResult').textContent=`${p}% of ${n} = ${(n*p/100).toFixed(2)}`}
+function discCalc(){let o=+$('orig').value,d=+$('disc').value,s=o-(o*d/100);$('discResult').textContent=`You save ${ (o*d/100).toFixed(2) } · Sale price: ${s.toFixed(2)}`}
+$('counterText').addEventListener('input',()=>{let t=$('counterText').value.trim();let w=t?t.split(/\s+/).length:0;$('counterResult').textContent=`${w} words · ${$('counterText').value.length} characters`})
+function makeInvoice(){let lines=$('items').value.split(/\n/).map(x=>{let a=x.split(',').map(s=>s.trim());return {n:a[0]||'',q:+a[1]||0,p:+a[2]||0}}).filter(x=>x.n);let total=lines.reduce((s,x)=>s+x.q*x.p,0);let out=`${$('biz').value||'Business'}\nINVOICE\nCustomer: ${$('cust').value||'Customer'}\n\n`;lines.forEach(x=>out+=`${x.n} — ${x.q} × ${x.p.toFixed(2)} = ${(x.q*x.p).toFixed(2)}\n`);out+=`\nTOTAL: ${total.toFixed(2)}`;$('invoiceResult').textContent=out}
+function compressImage(){let f=$('imgFile').files[0];if(!f)return;$('imgResult').textContent='Compressing…';let r=new FileReader();r.onload=e=>{let im=new Image();im.onload=()=>{let max=1800,s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);c.toBlob(b=>{let a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='compressed-image.jpg';a.textContent='Download compressed image';$('imgResult').innerHTML=`Original: ${(f.size/1024).toFixed(0)} KB · New: ${(b.size/1024).toFixed(0)} KB<br>`;$('imgResult').appendChild(a)},'image/jpeg',+$('quality').value)};im.src=e.target.result};r.readAsDataURL(f)}
+function makeQR(){let t=encodeURIComponent($('qrText').value.trim());if(!t)return;window.open('https://api.qrserver.com/v1/create-qr-code/?size=300x300&data='+t,'_blank')}
+$('search').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('.tool').forEach(x=>x.classList.toggle('hidden',q&&!x.dataset.name.includes(q)))})
+
+function filterCat(cat){
+ document.querySelectorAll('.tool').forEach(x=>x.classList.toggle('hidden',cat!=='all' && x.dataset.cat!==cat));
+ $('search').value='';
+}
+function taxCalc(){let a=+$('taxAmt').value,t=+$('taxPct').value,v=a*t/100;$('taxResult').textContent=`Tax: ${v.toFixed(2)} · Total: ${(a+v).toFixed(2)}`}
+function emiCalc(){let P=+$('loan').value,r=(+$('rate').value/100)/12,n=+$('months').value;if(!P||!n){return}$('emiResult').textContent=r?`Estimated monthly EMI: ${(P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1)).toFixed(2)}`:`Monthly payment: ${(P/n).toFixed(2)}`}
+function caseDo(mode){let e=$('caseText'),t=e.value;if(mode==='upper')e.value=t.toUpperCase();else if(mode==='lower')e.value=t.toLowerCase();else e.value=t.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase())}
+function bmiCalc(){let w=+$('weight').value,h=+$('height').value/100;if(!w||!h)return;let b=w/(h*h);let label=b<18.5?'Below 18.5':b<25?'18.5–24.9':b<30?'25–29.9':'30+';$('bmiResult').textContent=`BMI: ${b.toFixed(1)} · Range: ${label}`}
+
+function showPage(page){
+ const info=$('pageInfo'),home=$('homePage');
+ if(page==='home'){info.style.display='none';home.style.display='block';return}
+ home.style.display='none';info.style.display='block';
+ ['about','privacy','contact'].forEach(x=>$(x+'Page').style.display=x===page?'block':'none');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function unitCalc(){let v=+$('unitVal').value,t=$('unitType').value,m={kmmi:.621371,mikm:1.609344,kglb:2.20462,lbkg:.453592};$('unitResult').textContent=(v*m[t]).toFixed(4)}
+function timeCalc(){let h=+$('hrs').value||0,m=+$('mins').value||0;$('timeResult').textContent=`${h} hours ${m} minutes = ${(h*60+m)} total minutes`}
+function cleanTextDo(){let e=$('cleanText');e.value=e.value.split(/\n/).map(x=>x.trim().replace(/\s+/g,' ')).filter(Boolean).join('\n')}
+function markupCalc(){let c=+$('markCost').value,p=+$('markPct').value;$('markResult').textContent=`Selling price: ${(c*(1+p/100)).toFixed(2)}`}
+function downloadText(){let b=new Blob([$('fileText').value],{type:'text/plain'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='easytools-note.txt';a.click();URL.revokeObjectURL(a.href)}
+function dateDiff(){let a=new Date($('dateA').value),b=new Date($('dateB').value);if(isNaN(a)||isNaN(b))return;$('dateResult').textContent=`Difference: ${Math.round(Math.abs(b-a)/86400000)} days`}
+</script>
+</body></html>
