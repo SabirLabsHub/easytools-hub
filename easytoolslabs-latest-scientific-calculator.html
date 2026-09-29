@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>EasyToolsLabs — Scientific Calculator</title>
+<style>
+:root{--bg:#0b1020;--panel:#111827;--panel2:#172033;--key:#202b40;--key2:#26344d;--text:#f7f9fc;--muted:#9eabc1;--accent:#6ea8ff;--danger:#ff6b7a;--shadow:0 20px 55px #0007}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 20% 0%,#243c68 0,#0b1020 42%,#070b14 100%);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);display:flex;justify-content:center;padding:18px}
+.app{width:min(100%,620px);background:linear-gradient(180deg,#121a2bfa,#0e1524fa);border:1px solid #ffffff12;border-radius:28px;box-shadow:var(--shadow);overflow:hidden}
+.top{padding:18px 18px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:800;font-size:18px}.brand span{color:var(--accent)}.tools{display:flex;gap:7px}.tools button,.select{background:#ffffff0d;border:1px solid #ffffff12;color:var(--text);border-radius:11px;padding:9px 11px;font-weight:700}
+.display{margin:8px 14px 14px;padding:18px 16px 15px;background:#070c16;border-radius:20px;border:1px solid #ffffff0d;text-align:right;min-height:130px}.expr{min-height:28px;color:var(--muted);font-size:18px;overflow:auto;white-space:nowrap}.result{font-size:39px;font-weight:750;margin-top:8px;overflow:auto;white-space:nowrap}.mode{font-size:12px;color:var(--accent);margin-top:8px;font-weight:800}
+.scientific{padding:0 12px 8px;display:grid;grid-template-columns:repeat(6,1fr);gap:7px}.basic{padding:0 12px 16px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+button.key{border:0;color:var(--text);background:var(--key);min-height:48px;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;transition:.12s transform,.12s filter;box-shadow:inset 0 1px #ffffff0a}
+button.key:hover{filter:brightness(1.15)}button.key:active{transform:scale(.96)}.fn{background:var(--key2)!important;color:#dce8ff!important;font-size:14px!important}.op{background:#253b5f!important;color:#bcd7ff!important}.eq{background:var(--accent)!important;color:#06101f!important}.danger{background:#5a2631!important;color:#ffd9de!important}.memory{color:#b9c8dd!important}
+.wide{grid-column:span 2}.history{border-top:1px solid #ffffff0d;padding:12px 16px 16px}.historyHead{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px;font-weight:800}.historyList{margin-top:8px;max-height:130px;overflow:auto}.item{padding:8px 10px;border-radius:10px;background:#ffffff07;margin-bottom:5px;cursor:pointer}.item small{display:block;color:var(--muted)}.empty{color:#65738a;font-size:13px;padding:10px 0}
+@media(max-width:480px){body{padding:8px}.app{border-radius:22px}.scientific{grid-template-columns:repeat(6,1fr);gap:5px;padding-left:8px;padding-right:8px}.basic{gap:6px;padding-left:8px;padding-right:8px}.scientific button.key{min-height:43px;font-size:13px}.basic button.key{min-height:52px;font-size:17px}.display{margin-left:8px;margin-right:8px}.result{font-size:33px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="brand">EasyTools<span>Labs</span> • Scientific</div>
+    <div class="tools">
+      <select id="theme" class="select" aria-label="Theme">
+        <option value="midnight">Midnight</option><option value="ocean">Ocean</option><option value="purple">Purple</option>
+        <option value="emerald">Emerald</option><option value="rose">Rose</option><option value="sunset">Sunset</option><option value="light">Light</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="display">
+    <div id="expr" class="expr">0</div>
+    <div id="result" class="result">0</div>
+    <div id="mode" class="mode">DEG • BASIC + SCIENTIFIC</div>
+  </div>
+
+  <div class="scientific">
+    <button class="key fn" data-act="deg">DEG</button><button class="key fn" data-act="rad">RAD</button>
+    <button class="key fn" data-act="inv">INV</button><button class="key fn" data-insert="π">π</button>
+    <button class="key fn" data-insert="e">e</button><button class="key fn" data-act="ans">Ans</button>
+
+    <button class="key fn" data-fn="sin">sin</button><button class="key fn" data-fn="cos">cos</button>
+    <button class="key fn" data-fn="tan">tan</button><button class="key fn" data-fn="sec">sec</button>
+    <button class="key fn" data-fn="csc">csc</button><button class="key fn" data-fn="cot">cot</button>
+
+    <button class="key fn" data-fn="asin">sin⁻¹</button><button class="key fn" data-fn="acos">cos⁻¹</button>
+    <button class="key fn" data-fn="atan">tan⁻¹</button><button class="key fn" data-fn="ln">ln</button>
+    <button class="key fn" data-fn="log">log</button><button class="key fn" data-fn="abs">abs</button>
+
+    <button class="key fn" data-fn="sqrt">√</button><button class="key fn" data-fn="cbrt">∛</button>
+    <button class="key fn" data-fn="square">x²</button><button class="key fn" data-fn="cube">x³</button>
+    <button class="key fn" data-fn="recip">1/x</button><button class="key fn" data-fn="fact">n!</button>
+
+    <button class="key fn" data-fn="pow10">10ˣ</button><button class="key fn" data-fn="exp">eˣ</button>
+    <button class="key fn" data-fn="pow">xʸ</button><button class="key fn" data-insert="(">(</button>
+    <button class="key fn" data-insert=")">)</button><button class="key fn" data-act="percent">%</button>
+
+    <button class="key memory" data-act="mc">MC</button><button class="key memory" data-act="mr">MR</button>
+    <button class="key memory" data-act="mplus">M+</button><button class="key memory" data-act="mminus">M−</button>
+    <button class="key memory" data-act="ms">MS</button><button class="key fn" data-act="random">RAND</button>
+  </div>
+
+  <div class="basic">
+    <button class="key danger" data-act="clear">AC</button><button class="key danger" data-act="del">DEL</button>
+    <button class="key fn" data-act="sign">±</button><button class="key op" data-insert="/">÷</button>
+
+    <button class="key" data-insert="7">7</button><button class="key" data-insert="8">8</button><button class="key" data-insert="9">9</button><button class="key op" data-insert="*">×</button>
+    <button class="key" data-insert="4">4</button><button class="key" data-insert="5">5</button><button class="key" data-insert="6">6</button><button class="key op" data-insert="-">−</button>
+    <button class="key" data-insert="1">1</button><button class="key" data-insert="2">2</button><button class="key" data-insert="3">3</button><button class="key op" data-insert="+">+</button>
+    <button class="key wide" data-insert="0">0</button><button class="key" data-insert=".">.</button><button class="key eq" data-act="equals">=</button>
+  </div>
+
+  <div class="history">
+    <div class="historyHead"><span>Calculation History</span><button class="tools button" id="clearHistory">Clear</button></div>
+    <div id="historyList" class="historyList"><div class="empty">No calculations yet.</div></div>
+  </div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s), exprEl=$('#expr'), resultEl=$('#result'), modeEl=$('#mode');
+let expr='', angle='DEG', inverse=false, ans=0, memory=0, justEvaluated=false;
+const history=[];
+
+const themes={
+midnight:['#0b1020','#111827','#202b40','#6ea8ff'],ocean:['#061c2a','#0b2b3a','#16465a','#45c7ff'],
+purple:['#180d2b','#241440','#3a2360','#b784ff'],emerald:['#071f18','#0d3026','#17483a','#54e3ae'],
+rose:['#260d18','#351522','#542235','#ff86a8'],sunset:['#261309','#3a1e0d','#5b3014','#ffad5c'],
+light:['#e9eef7','#ffffff','#e7ebf3','#3b70e8']};
+$('#theme').onchange=e=>{let t=themes[e.target.value],r=document.documentElement.style;r.setProperty('--bg',t[0]);r.setProperty('--panel',t[1]);r.setProperty('--key',t[2]);r.setProperty('--accent',t[3]);document.body.style.background=`radial-gradient(circle at 20% 0%,${t[3]}55 0,#${e.target.value==='light'?'e9eef7':'0b1020'} 55%)`;};
+
+function refresh(){
+ exprEl.textContent=expr||'0'; resultEl.textContent=justEvaluated?format(ans):'0';
+ modeEl.textContent=`${angle} • ${inverse?'INV • ':''}SCIENTIFIC`;
+}
+function format(x){if(typeof x!=='number'||!isFinite(x))return 'Error';if(Math.abs(x)<1e-12)x=0;return Number(x.toPrecision(12)).toString();}
+function toRad(x){return angle==='DEG'?x*Math.PI/180:x}
+function fromRad(x){return angle==='DEG'?x*180/Math.PI:x}
+function factorial(n){if(!Number.isInteger(n)||n<0||n>170)throw Error();let r=1;for(let i=2;i<=n;i++)r*=i;return r}
+
+function transform(s){
+ s=s.replace(/π/g,'Math.PI').replace(/\be\b/g,'Math.E').replace(/Ans/g,'ANS');
+ s=s.replace(/(\d+(?:\.\d+)?)%/g,'($1/100)');
+ s=s.replace(/(\d+(?:\.\d+)?)\^/g,'$1**');
+ s=s.replace(/(\d+(?:\.\d+)?)!/g,'fact($1)');
+ s=s.replace(/√\(/g,'sqrt(').replace(/∛\(/g,'cbrt(');
+ return s;
+}
+function evaluate(s){
+ let js=transform(s);
+ const f={
+  ANS:ans,fact,
+  sqrt:Math.sqrt,cbrt:Math.cbrt,abs:Math.abs,
+  ln:Math.log,log:Math.log10,
+  pow10:x=>10**x,exp:Math.exp,
+  sin:x=>Math.sin(toRad(x)),cos:x=>Math.cos(toRad(x)),tan:x=>Math.tan(toRad(x)),
+  sec:x=>1/Math.cos(toRad(x)),csc:x=>1/Math.sin(toRad(x)),cot:x=>1/Math.tan(toRad(x)),
+  asin:x=>fromRad(Math.asin(x)),acos:x=>fromRad(Math.acos(x)),atan:x=>fromRad(Math.atan(x))
+ };
+ if(!/^[0-9+\-*/%().,\sA-Za-z_]*$/.test(js))throw Error();
+ return Function(...Object.keys(f),'"use strict";return ('+js+');')(...Object.values(f));
+}
+function calculate(){
+ if(!expr)return 0;
+ try{return evaluate(expr)}catch{return NaN}
+}
+function addHistory(e,v){
+ history.unshift({e,v});if(history.length>30)history.pop();
+ $('#historyList').innerHTML=history.length?history.map((h,i)=>`<div class="item" data-i="${i}"><small>${escapeHtml(h.e)}</small><b>${format(h.v)}</b></div>`).join(''):'<div class="empty">No calculations yet.</div>';
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function insert(v){
+ if(justEvaluated && /^[0-9.πe(]/.test(v))expr='';
+ justEvaluated=false;expr+=v;refresh();
+}
+function unary(type){
+ let v=calculate(); if(!isFinite(v))return;
+ let out;
+ try{
+  if(type==='sin')out=inverse?fromRad(Math.asin(v)):Math.sin(toRad(v));
+  if(type==='cos')out=inverse?fromRad(Math.acos(v)):Math.cos(toRad(v));
+  if(type==='tan')out=inverse?fromRad(Math.atan(v)):Math.tan(toRad(v));
+  if(type==='asin')out=fromRad(Math.asin(v)); if(type==='acos')out=fromRad(Math.acos(v)); if(type==='atan')out=fromRad(Math.atan(v));
+  if(type==='sec')out=1/Math.cos(toRad(v)); if(type==='csc')out=1/Math.sin(toRad(v)); if(type==='cot')out=1/Math.tan(toRad(v));
+  if(type==='ln')out=Math.log(v); if(type==='log')out=Math.log10(v); if(type==='abs')out=Math.abs(v);
+  if(type==='sqrt')out=Math.sqrt(v);if(type==='cbrt')out=Math.cbrt(v);if(type==='square')out=v*v;if(type==='cube')out=v*v*v;
+  if(type==='recip')out=1/v;if(type==='fact')out=factorial(v);if(type==='pow10')out=10**v;if(type==='exp')out=Math.exp(v);
+  if(type==='random')out=Math.random();
+ }catch{out=NaN}
+ if(!isFinite(out)){resultEl.textContent='Error';return}
+ expr=format(out);ans=out;justEvaluated=true;resultEl.textContent=format(out);exprEl.textContent=format(out);addHistory(type+'('+format(v)+')',out);
+}
+document.querySelectorAll('[data-insert]').forEach(b=>b.onclick=()=>insert(b.dataset.insert));
+document.querySelectorAll('[data-fn]').forEach(b=>b.onclick=()=>unary(b.dataset.fn));
+document.querySelectorAll('[data-act]').forEach(b=>b.onclick=()=>{
+ const a=b.dataset.act;
+ if(a==='clear'){expr='';justEvaluated=false;resultEl.textContent='0'}
+ else if(a==='del'){expr=expr.slice(0,-1);justEvaluated=false}
+ else if(a==='equals'){let v=calculate();if(isFinite(v)){addHistory(expr,v);ans=v;expr=format(v);resultEl.textContent=format(v);justEvaluated=true}else resultEl.textContent='Error'}
+ else if(a==='deg'||a==='rad'){angle=a.toUpperCase();refresh()}
+ else if(a==='inv'){inverse=!inverse;refresh()}
+ else if(a==='ans')insert('Ans')
+ else if(a==='sign'){let v=calculate();if(isFinite(v)){ans=-v;expr=format(ans);justEvaluated=true;refresh()}}
+ else if(a==='percent'){expr+='%';justEvaluated=false;refresh()}
+ else if(a==='mc')memory=0
+ else if(a==='mr')insert(format(memory))
+ else if(a==='ms'){let v=calculate();if(isFinite(v))memory=v}
+ else if(a==='mplus'){let v=calculate();if(isFinite(v))memory+=v}
+ else if(a==='mminus'){let v=calculate();if(isFinite(v))memory-=v}
+ else if(a==='random')unary('random');
+});
+$('#clearHistory').onclick=()=>{$('#historyList').innerHTML='<div class="empty">No calculations yet.</div>';history.length=0};
+$('#historyList').onclick=e=>{let item=e.target.closest('.item');if(!item)return;expr=history[+item.dataset.i].e;justEvaluated=false;refresh()};
+document.addEventListener('keydown',e=>{
+ if(/[0-9.+\-*/%()]/.test(e.key)){insert(e.key);return}
+ if(e.key==='Enter'||e.key==='='){e.preventDefault();document.querySelector('[data-act="equals"]').click();return}
+ if(e.key==='Backspace'){document.querySelector('[data-act="del"]').click();return}
+ if(e.key==='Escape'){document.querySelector('[data-act="clear"]').click();return}
+});
+refresh();
+</script>
+</body>
+</html>
