@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EasyTools Hub — Free Online Tools & Calculators</title>
+<link rel="canonical" href="https://example.com/">
+<meta property="og:title" content="EasyTools Hub — Free Online Tools">
+<meta property="og:description" content="Fast, simple online calculators, business tools, text utilities and file tools.">
+<meta property="og:type" content="website">
+<meta name="description" content="Free online calculators, business tools, text utilities, image tools and everyday productivity tools. Fast and simple to use.">
+<meta name="keywords" content="free online tools, calculator, invoice maker, profit calculator, percentage calculator, image compressor, text tools">
+<meta name="robots" content="index,follow">
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#667085;--line:#e4e7ec;--primary:#635bff;--soft:#efedff;--good:#087443}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,system-ui,Arial,sans-serif;color:var(--text)}
+header{background:linear-gradient(135deg,#635bff,#8b5cf6);color:#fff;padding:34px 18px 42px}
+.wrap{max-width:1050px;margin:auto}.brand{font-size:28px;font-weight:800}.tag{opacity:.9;margin-top:7px}
+.search{margin:24px auto 0;max-width:680px}.search input{width:100%;padding:15px 18px;border:0;border-radius:14px;font-size:16px;outline:0}
+main{max-width:1050px;margin:-18px auto 40px;padding:0 16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 5px 18px #1720330b}
+.card h2{font-size:19px;margin:0 0 6px}.desc{color:var(--muted);font-size:14px;margin-bottom:17px}
+label{display:block;font-size:13px;font-weight:700;margin:10px 0 6px}input,textarea,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px;background:#fff}textarea{min-height:80px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{margin-top:12px;border:0;border-radius:10px;padding:11px 14px;background:var(--primary);color:#fff;font-weight:750;cursor:pointer}.btn.alt{background:#eef0f5;color:var(--text)}.result{margin-top:13px;padding:12px;border-radius:10px;background:var(--soft);font-weight:750}
+.tool.hidden{display:none}.dark{--bg:#10131a;--card:#181c25;--text:#f4f5f7;--muted:#a7afbf;--line:#303746}.dark input,.dark textarea,.dark select{background:#11151d;color:#fff}.tip{font-size:12px;color:var(--muted);margin-top:8px}footer{text-align:center;color:var(--muted);padding:25px;font-size:13px}
+.invoice-output{white-space:pre-wrap;background:#fafafa;border:1px dashed var(--line);padding:12px;border-radius:10px;margin-top:12px}
+canvas{max-width:100%;border:1px solid var(--line);border-radius:10px;margin-top:12px}
+@media(max-width:560px){.row{grid-template-columns:1fr}.brand{font-size:24px}}
+details{border-top:1px solid var(--line);padding:12px 0}summary{cursor:pointer;font-weight:700}details p{color:var(--muted)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="brand">⚡ EasyTools Hub</div>
+<div class="tag">Simple, useful tools for everyday work — free to start.</div>
+<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+<button class="btn" style="margin:0;background:#fff;color:#635bff" onclick="filterCat('all')">All</button>
+<button class="btn" style="margin:0" onclick="filterCat('business')">Business</button>
+<button class="btn" style="margin:0" onclick="filterCat('calculators')">Calculators</button>
+<button class="btn" style="margin:0" onclick="filterCat('text')">Text</button>
+<button class="btn" style="margin:0" onclick="filterCat('files')">Files</button>
+<button class="btn" style="margin:0;background:#ffffff22" onclick="document.body.classList.toggle('dark')">☾ Theme</button>
+</div>
+<div class="search"><input id="search" placeholder="Search tools… e.g. age, profit, image, invoice"></div>
+</div></header>
+
+<nav style="background:#fff;border-bottom:1px solid #e4e7ec;padding:12px 16px;position:sticky;top:0;z-index:5">
+<div class="wrap" style="display:flex;gap:10px;align-items:center;justify-content:space-between">
+<div style="font-weight:800">EasyTools Hub</div>
+<div style="display:flex;gap:7px;flex-wrap:wrap">
+<button class="btn alt" style="margin:0" onclick="showPage('home')">Tools</button>
+<button class="btn alt" style="margin:0" onclick="showPage('about')">About</button>
+<button class="btn alt" style="margin:0" onclick="showPage('privacy')">Privacy</button>
+<button class="btn alt" style="margin:0" onclick="showPage('contact')">Contact</button>
+</div></div></nav>
+<div id="pageInfo" style="display:none;max-width:900px;margin:25px auto;padding:0 18px">
+<section id="aboutPage" class="card" style="display:none"><h2>About EasyTools Hub</h2><p>EasyTools Hub is designed to provide simple browser-based tools for everyday tasks, business calculations, writing and file utilities.</p><p>Our goal is to keep common tasks fast, simple and accessible.</p></section>
+<section id="privacyPage" class="card" style="display:none"><h2>Privacy</h2><p>Many tools process information directly in your browser. Do not enter sensitive or confidential information into any tool unless you understand how it is processed.</p><p>This starter version does not include user accounts or payment processing.</p></section>
+<section id="contactPage" class="card" style="display:none"><h2>Contact</h2><p>For feedback, partnerships or tool requests, add your business email here before publishing the site.</p><div class="result">Email: your-email@example.com</div></section>
+</div>
+<main id="homePage">
+<section class="card" style="margin-bottom:16px;text-align:center;background:linear-gradient(135deg,#f3f1ff,#fff)">
+<h2>✨ Free tools for everyday work</h2>
+<p class="desc">Use our calculators, business tools, text utilities and file helpers in one place.</p>
+<div class="tip">Future monetization area: advertisements and optional premium tools can be added here.</div>
+</section>
+<div class="grid" id="tools">
+<section class="card tool" data-cat="calculators" data-name="unit converter length km miles kg lb">
+<h2>📏 Unit Converter</h2><div class="desc">Convert common length and weight units.</div>
+<div class="row"><div><label>Value</label><input id="unitVal" type="number"></div>
+<div><label>Conversion</label><select id="unitType"><option value="kmmi">km → miles</option><option value="mikm">miles → km</option><option value="kglb">kg → lb</option><option value="lbkg">lb → kg</option></select></div></div>
+<button class="btn" onclick="unitCalc()">Convert</button><div id="unitResult" class="result">Enter a value.</div></section>
+
+<section class="card tool" data-cat="calculators" data-name="time calculator">
+<h2>⏱️ Time Calculator</h2><div class="desc">Add hours and minutes.</div>
+<div class="row"><div><label>Hours</label><input id="hrs" type="number"></div><div><label>Minutes</label><input id="mins" type="number"></div></div>
+<button class="btn" onclick="timeCalc()">Calculate</button><div id="timeResult" class="result">Enter values above.</div></section>
+
+<section class="card tool" data-cat="text" data-name="remove spaces text cleaner">
+<h2>🧹 Text Cleaner</h2><div class="desc">Remove extra spaces and blank lines from text.</div>
+<textarea id="cleanText" placeholder="Paste text here…"></textarea>
+<button class="btn" onclick="cleanTextDo()">Clean Text</button></section>
+
+<section class="card tool" data-cat="business" data-name="markup calculator pricing">
+<h2>💵 Markup Calculator</h2><div class="desc">Set a selling price from cost and markup percentage.</div>
+<div class="row"><div><label>Cost</label><input id="markCost" type="number"></div><div><label>Markup %</label><input id="markPct" type="number"></div></div>
+<button class="btn" onclick="markupCalc()">Calculate</button><div id="markResult" class="result">Enter values above.</div></section>
+
+<section class="card tool" data-cat="files" data-name="text download">
+<h2>📄 Text File Maker</h2><div class="desc">Create and download a plain text file directly in your browser.</div>
+<textarea id="fileText" placeholder="Write something…"></textarea>
+<button class="btn" onclick="downloadText()">Download .txt</button></section>
+
+<section class="card tool" data-cat="calculators" data-name="date difference calculator">
+<h2>📅 Date Difference</h2><div class="desc">Find the number of days between two dates.</div>
+<div class="row"><div><label>Start</label><input id="dateA" type="date"></div><div><label>End</label><input id="dateB" type="date"></div></div>
+<button class="btn" onclick="dateDiff()">Calculate</button><div id="dateResult" class="result">Choose dates.</div></section>
+
+
+
+<section class="card tool" data-cat="calculators" data-name="age calculator date age birthday">
+<h2>🎂 Age Calculator</h2><div class="desc">Calculate your exact age from your date of birth.</div>
+<label>Date of birth</label><input id="dob" type="date"><button class="btn" onclick="ageCalc()">Calculate age</button>
+<div id="ageResult" class="result">Your result will appear here.</div></section>
+
+<section class="card tool" data-cat="business" data-name="profit calculator business profit margin">
+<h2>📈 Profit Calculator</h2><div class="desc">Calculate profit, loss and margin for a product or business sale.</div>
+<div class="row"><div><label>Cost</label><input id="cost" type="number" min="0" step="0.01"></div>
+<div><label>Sale price</label><input id="sale" type="number" min="0" step="0.01"></div></div>
+<button class="btn" onclick="profitCalc()">Calculate</button><div id="profitResult" class="result">Enter values above.</div></section>
+
+<section class="card tool" data-cat="business" data-name="invoice invoice maker business receipt">
+<h2>🧾 Invoice Maker</h2><div class="desc">Create a clean invoice and print/save it as PDF from your browser.</div>
+<div class="row"><div><label>Business</label><input id="biz" placeholder="My Business"></div><div><label>Customer</label><input id="cust" placeholder="Customer name"></div></div>
+<label>Items (one per line: item, quantity, price)</label>
+<textarea id="items" placeholder="Logo Design, 1, 50&#10>Website, 1, 150"></textarea>
+<button class="btn" onclick="makeInvoice()">Create invoice</button><button class="btn alt" onclick="window.print()">Print / Save PDF</button>
+<div id="invoiceResult" class="invoice-output">Invoice preview will appear here.</div></section>
+
+<section class="card tool" data-cat="files" data-name="image compressor image resize compress">
+<h2>🖼️ Image Compressor</h2><div class="desc">Compress an image in your browser. Your selected file stays on your device.</div>
+<input id="imgFile" type="file" accept="image/*"><label>Quality</label><input id="quality" type="range" min=".1" max="1" step=".05" value=".7">
+<button class="btn" onclick="compressImage()">Compress image</button><div id="imgResult" class="result">Choose an image.</div></section>
+
+<section class="card tool" data-cat="calculators" data-name="percentage calculator discount">
+<h2>％ Percentage Calculator</h2><div class="desc">Find a percentage of a number quickly.</div>
+<div class="row"><div><label>Number</label><input id="pctNum" type="number"></div><div><label>Percentage</label><input id="pct" type="number"></div></div>
+<button class="btn" onclick="pctCalc()">Calculate</button><div id="pctResult" class="result">Enter values above.</div></section>
+
+<section class="card tool" data-cat="calculators" data-name="discount calculator sale">
+<h2>🏷️ Discount Calculator</h2><div class="desc">Calculate sale price and how much you save.</div>
+<div class="row"><div><label>Original price</label><input id="orig" type="number"></div><div><label>Discount %</label><input id="disc" type="number"></div></div>
+<button class="btn" onclick="discCalc()">Calculate</button><div id="discResult" class="result">Enter values above.</div></section>
+
+<section class="card tool" data-cat="text" data-name="word counter text counter">
+<h2>🔤 Word & Character Counter</h2><div class="desc">Useful for posts, articles, applications and assignments.</div>
+<textarea id="counterText" placeholder="Paste or type your text…"></textarea>
+<div id="counterResult" class="result">0 words · 0 characters</div></section>
+
+<section class="card tool" data-cat="business" data-name="tax calculator sales tax vat">
+<h2>🧮 Tax Calculator</h2><div class="desc">Calculate tax amount and final price.</div>
+<div class="row"><div><label>Amount</label><input id="taxAmt" type="number"></div><div><label>Tax %</label><input id="taxPct" type="number"></div></div>
+<button class="btn" onclick="taxCalc()">Calculate</button><div id="taxResult" class="result">Enter values above.</div></section>
+
+<section class="card tool" data-cat="calculators" data-name="loan calculator emi">
+<h2>🏦 Loan / EMI Calculator</h2><div class="desc">Estimate monthly payment for a simple fixed-rate loan.</div>
+<div class="row"><div><label>Loan amount</label><input id="loan" type="number"></div><div><label>Annual interest %</label><input id="rate" type="number" step=".01"></div></div>
+<label>Term (months)</label><input id="months" type="number">
+<button class="btn" onclick="emiCalc()">Calculate EMI</button><div id="emiResult" class="result">Enter values above.</div></section>
+
+<section class="card tool" data-cat="text" data-name="case converter uppercase lowercase text">
+<h2>🔠 Case Converter</h2><div class="desc">Convert text to uppercase, lowercase or title case.</div>
+<textarea id="caseText" placeholder="Type or paste text…"></textarea>
+<button class="btn" onclick="caseDo('upper')">UPPERCASE</button>
+<button class="btn alt" onclick="caseDo('lower')">lowercase</button>
+<button class="btn alt" onclick="caseDo('title')">Title Case</button></section>
+
+<section class="card tool" data-cat="calculators" data-name="bmi calculator health">
+<h2>⚖️ BMI Calculator</h2><div class="desc">Calculate BMI from height and weight. General informational use only.</div>
+<div class="row"><div><label>Weight (kg)</label><input id="weight" type="number"></div><div><label>Height (cm)</label><input id="height" type="number"></div></div>
+<button class="btn" onclick="bmiCalc()">Calculate BMI</button><div id="bmiResult" class="result">Enter values above.</div></section>
+
+
+<section class="card tool" data-cat="files" data-name="temp mail temporary email disposable inbox privacy">
+<h2>📬 Temp Mail</h2>
+<div class="desc">Generate a temporary email address and check its inbox. No account required.</div>
+<div id="tmAddress" class="result">Click “Generate Email” to create a temporary address.</div>
+<div class="row">
+  <button class="btn" onclick="tmGenerate()">Generate Email</button>
+  <button class="btn alt" onclick="tmCopy()">Copy Email</button>
+</div>
+<button class="btn alt" onclick="tmRefresh()">🔄 Refresh Inbox</button>
+<div id="tmStatus" class="tip">Ready.</div>
+<div id="tmInbox" style="margin-top:12px"></div>
+<div class="tip">Temporary inboxes are for short-lived testing/sign-ups. Do not use them for banking, passwords, recovery accounts, or sensitive information.</div>
+</section>
+
+<section class="card tool" data-cat="files" data-cat="files" data-name="qr code generator qr">
+<h2>🔳 QR Code</h2><div class="desc">Enter a URL and open the built-in QR service in a new tab.</div>
+<input id="qrText" placeholder="https://example.com">
+<button class="btn" onclick="makeQR()">Generate QR</button>
+<div class="tip">QR generation uses a web service when you click the button.</div></section>
+
+</div>
+</main>
+<section class="card feedback-card" id="feedbackSection" style="max-width:1050px;margin:0 auto 20px">
+<h2>⭐ Reviews & Feedback</h2>
+<p class="desc">Tell us what you think about EasyTools Hub. Your feedback helps us improve the tools.</p>
+<div class="row">
+<div><label>Your name (optional)</label><input id="feedbackName" placeholder="Your name"></div>
+<div><label>Rating</label><select id="feedbackRating"><option value="5">★★★★★ 5</option><option value="4">★★★★ 4</option><option value="3">★★★ 3</option><option value="2">★★ 2</option><option value="1">★ 1</option></select></div>
+</div>
+<label>Feedback / Review</label>
+<textarea id="feedbackText" rows="4" placeholder="Write your feedback..."></textarea>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+<button class="btn" onclick="submitFeedback()">Send Feedback</button>
+<button class="btn alt" onclick="clearFeedback()">Clear</button>
+</div>
+<div id="feedbackResult" class="result">Feedback will be saved on this device in the current version.</div>
+<div id="feedbackList" style="margin-top:14px"></div>
+</section>
+
+
+
+<section class="card tool" data-cat="text" data-name="password generator secure password">
+<h2>🔐 Password Generator</h2><div class="desc">Generate a strong random password.</div>
+<div class="row"><div><label>Length</label><input id="pwLen" type="number" value="16" min="4" max="100"></div><div><label>Options</label><select id="pwOpt"><option value="all">Letters + Numbers + Symbols</option><option value="letters">Letters only</option><option value="numbers">Numbers only</option></select></div></div>
+<button class="btn" onclick="genPassword()">Generate Password</button><button class="btn alt" onclick="copyRaw('pwResult')">Copy</button><div id="pwResult" class="result">—</div></section>
+
+<section class="card tool" data-cat="text" data-name="password strength checker">
+<h2>💪 Password Strength Checker</h2><div class="desc">Check basic password strength locally in your browser.</div><input id="pwCheck" type="password" placeholder="Enter password"><button class="btn" onclick="checkPassword()">Check Strength</button><div id="pwStrength" class="result">—</div></section>
+
+<section class="card tool" data-cat="text" data-name="uuid generator uuid v4">
+<h2>🔢 UUID Generator</h2><div class="desc">Generate random UUID v4 identifiers.</div><button class="btn" onclick="genUUID()">Generate UUID</button><button class="btn alt" onclick="copyRaw('uuidResult')">Copy</button><div id="uuidResult" class="result">—</div></section>
+
+<section class="card tool" data-cat="text" data-name="hash generator sha-256 sha256">
+<h2>#️⃣ Hash Generator</h2><div class="desc">Create a SHA-256 hash from text.</div><textarea id="hashText" placeholder="Enter text..."></textarea><button class="btn" onclick="makeHash()">Generate SHA-256</button><div id="hashResult" class="result" style="word-break:break-all">—</div></section>
+
+<section class="card tool" data-cat="text" data-name="json formatter json validator">
+<h2>{} JSON Formatter</h2><div class="desc">Format and validate JSON.</div><textarea id="jsonText" placeholder='{"name":"EasyTools"}'></textarea><button class="btn" onclick="formatJSON()">Format JSON</button><div id="jsonResult" class="result" style="white-space:pre-wrap">—</div></section>
+
+<section class="card tool" data-cat="text" data-name="base64 encoder decoder">
+<h2>🔤 Base64 Encoder / Decoder</h2><textarea id="b64Text" placeholder="Enter text..."></textarea><button class="btn" onclick="b64Encode()">Encode</button><button class="btn alt" onclick="b64Decode()">Decode</button><div id="b64Result" class="result" style="word-break:break-all">—</div></section>
+
+<section class="card tool" data-cat="text" data-name="url encoder decoder">
+<h2>🔗 URL Encoder / Decoder</h2><textarea id="urlText" placeholder="https://example.com/?q=hello world"></textarea><button class="btn" onclick="urlEncodeDo()">Encode</button><button class="btn alt" onclick="urlDecodeDo()">Decode</button><div id="urlResult" class="result" style="word-break:break-all">—</div></section>
+
+<section class="card tool" data-cat="text" data-name="seo slug generator slug url">
+<h2>📝 SEO Slug Generator</h2><div class="desc">Turn a title into a clean URL-friendly slug.</div><input id="slugText" placeholder="My Awesome Blog Post"><button class="btn" onclick="makeSlug()">Generate Slug</button><button class="btn alt" onclick="copyRaw('slugResult')">Copy</button><div id="slugResult" class="result">—</div></section>
+
+<section class="card tool" data-cat="calculators" data-name="unix timestamp converter timestamp">
+<h2>⏱️ Unix Timestamp Converter</h2><div class="desc">Convert current time or a Unix timestamp.</div><input id="unixText" placeholder="Leave blank for current time"><button class="btn" onclick="unixConvert()">Convert</button><div id="unixResult" class="result">—</div></section>
+
+<section class="card tool" data-cat="calculators" data-name="time zone converter timezone">
+<h2>🌍 Time Zone Converter</h2><div class="row"><div><label>Date & time</label><input id="tzDate" type="datetime-local"></div><div><label>Time zone</label><select id="tzZone"><option>UTC</option><option>Asia/Karachi</option><option>Asia/Dubai</option><option>Asia/Kolkata</option><option>Europe/London</option><option>America/New_York</option><option>America/Los_Angeles</option></select></div></div><button class="btn" onclick="convertTZ()">Convert to UTC</button><div id="tzResult" class="result">—</div></section>
+
+<section class="card tool" data-cat="calculators" data-name="random number generator random">
+<h2>🎲 Random Number Generator</h2><div class="row"><div><label>Minimum</label><input id="rndMin" type="number" value="1"></div><div><label>Maximum</label><input id="rndMax" type="number" value="100"></div></div><button class="btn" onclick="randomNumber()">Generate</button><div id="rndResult" class="result">—</div></section>
+
+<section class="card tool" data-cat="files" data-name="pdf merge combine pdf">
+<h2>📄 PDF Merge</h2><div class="desc">Merge multiple PDF files in your browser.</div><input id="pdfMergeFiles" type="file" accept="application/pdf" multiple><button class="btn" onclick="mergePDFs()">Merge PDFs</button><div id="pdfMergeResult" class="result">—</div></section>
+
+<section class="card tool" data-cat="files" data-name="pdf split extract pdf pages">
+<h2>✂️ PDF Split</h2><div class="desc">Extract selected pages from a PDF. Example: 1,3-5.</div><input id="pdfSplitFile" type="file" accept="application/pdf"><input id="pdfPages" placeholder="Pages e.g. 1,3-5"><button class="btn" onclick="splitPDF()">Split PDF</button><div id="pdfSplitResult" class="result">—</div></section>
+
+<section class="card tool" data-cat="files" data-name="pdf compress optimize pdf">
+<h2>📦 PDF Compress</h2><div class="desc">Rebuild a PDF with copied pages. Compression depends on the PDF content.</div><input id="pdfCompressFile" type="file" accept="application/pdf"><button class="btn" onclick="compressPDF()">Process PDF</button><div id="pdfCompressResult" class="result">—</div></section>
+
+<section class="card tool" data-cat="files" data-name="image crop cropper">
+<h2>🖼️ Image Cropper</h2><div class="desc">Crop an image using a simple browser-based crop area.</div><input id="cropFile" type="file" accept="image/*"><input id="cropX" type="number" placeholder="X" value="0"><input id="cropY" type="number" placeholder="Y" value="0"><input id="cropW" type="number" placeholder="Width"><input id="cropH" type="number" placeholder="Height"><button class="btn" onclick="cropImage()">Crop & Download</button><div id="cropResult" class="result">—</div></section>
+
+<section class="card tool" data-cat="files" data-name="background remover image">
+<h2>🪄 Background Remover</h2><div class="desc">Basic browser tool that makes near-white background pixels transparent. Best for simple product images.</div><input id="bgFile" type="file" accept="image/*"><button class="btn" onclick="removeBg()">Remove Simple Background</button><div id="bgResult" class="result">—</div></section>
+
+<section class="card tool" data-cat="business" data-name="whatsapp link generator whatsapp">
+<h2>💬 WhatsApp Link Generator</h2><div class="desc">Create a click-to-chat WhatsApp link.</div><input id="waPhone" placeholder="Phone with country code, e.g. 923001234567"><textarea id="waMsg" placeholder="Message (optional)"></textarea><button class="btn" onclick="makeWA()">Generate Link</button><div id="waResult" class="result" style="word-break:break-all">—</div></section>
+
+<section class="card tool" data-cat="files" data-name="color picker hex color">
+<h2>🎨 Color Picker</h2><div class="desc">Pick a color and copy its HEX value.</div><input id="colorPick" type="color" value="#635bff" style="height:55px"><button class="btn" onclick="showColor()">Get HEX</button><div id="colorResult" class="result">#635BFF</div></section>
+
+<section class="card" style="max-width:1050px;margin:0 auto 20px">
+<h2>❓ Frequently Asked Questions</h2>
+<details><summary>Are EasyTools Hub tools free?</summary><p>Yes. The starter version is designed around free browser-based tools.</p></details>
+<details><summary>Do I need an account?</summary><p>No account is required for the current prototype.</p></details>
+<details><summary>Can I use these tools on my phone?</summary><p>Yes. The interface is responsive and designed for mobile and desktop screens.</p></details>
+<details><summary>Will there be premium tools?</summary><p>Premium features can be added later without removing the free tools.</p></details>
+</section>
+<section class="card" style="max-width:1050px;margin:0 auto 20px;text-align:center">
+<h2>🚀 Ready for publishing</h2>
+<p class="desc">Before going live, replace the placeholder domain and contact email, connect analytics, add your chosen ad network, and test every tool on mobile.</p>
+<div class="result">Monetization area: Ads + optional Premium tools</div>
+</section>
+<footer>EasyTools Hub v3 · Free everyday tools. Premium features can be added later.</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function ageCalc(){let v=$('dob').value;if(!v)return;$d=new Date(v+'T00:00:00');let t=new Date();let y=t.getFullYear()-$d.getFullYear(),m=t.getMonth()-$d.getMonth(),d=t.getDate()-$d.getDate();if(d<0){m--;d+=new Date(t.getFullYear(),t.getMonth(),0).getDate()}if(m<0){y--;m+=12}$('ageResult').textContent=`${y} years, ${m} months, ${d} days old.`}
+function profitCalc(){let c=+$('cost').value,s=+$('sale').value,p=s-c,margin=s?((p/s)*100):0;$('profitResult').textContent=p>=0?`Profit: ${p.toFixed(2)} · Margin: ${margin.toFixed(2)}%`:`Loss: ${Math.abs(p).toFixed(2)}`}
+function pctCalc(){let n=+$('pctNum').value,p=+$('pct').value;$('pctResult').textContent=`${p}% of ${n} = ${(n*p/100).toFixed(2)}`}
+function discCalc(){let o=+$('orig').value,d=+$('disc').value,s=o-(o*d/100);$('discResult').textContent=`You save ${ (o*d/100).toFixed(2) } · Sale price: ${s.toFixed(2)}`}
+$('counterText').addEventListener('input',()=>{let t=$('counterText').value.trim();let w=t?t.split(/\s+/).length:0;$('counterResult').textContent=`${w} words · ${$('counterText').value.length} characters`})
+function makeInvoice(){let lines=$('items').value.split(/\n/).map(x=>{let a=x.split(',').map(s=>s.trim());return {n:a[0]||'',q:+a[1]||0,p:+a[2]||0}}).filter(x=>x.n);let total=lines.reduce((s,x)=>s+x.q*x.p,0);let out=`${$('biz').value||'Business'}\nINVOICE\nCustomer: ${$('cust').value||'Customer'}\n\n`;lines.forEach(x=>out+=`${x.n} — ${x.q} × ${x.p.toFixed(2)} = ${(x.q*x.p).toFixed(2)}\n`);out+=`\nTOTAL: ${total.toFixed(2)}`;$('invoiceResult').textContent=out}
+function compressImage(){let f=$('imgFile').files[0];if(!f)return;$('imgResult').textContent='Compressing…';let r=new FileReader();r.onload=e=>{let im=new Image();im.onload=()=>{let max=1800,s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);c.toBlob(b=>{let a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='compressed-image.jpg';a.textContent='Download compressed image';$('imgResult').innerHTML=`Original: ${(f.size/1024).toFixed(0)} KB · New: ${(b.size/1024).toFixed(0)} KB<br>`;$('imgResult').appendChild(a)},'image/jpeg',+$('quality').value)};im.src=e.target.result};r.readAsDataURL(f)}
+function makeQR(){let t=encodeURIComponent($('qrText').value.trim());if(!t)return;window.open('https://api.qrserver.com/v1/create-qr-code/?size=300x300&data='+t,'_blank')}
+function searchTools(){
+ const q=$('search').value.trim().toLowerCase();
+ let found=0;
+ document.querySelectorAll('.tool').forEach(x=>{
+   const text=((x.dataset.name||'')+' '+(x.dataset.cat||'')+' '+x.innerText).toLowerCase();
+   const match=!q||text.includes(q);
+   x.classList.toggle('hidden',!match);
+   if(match) found++;
+ });
+ let empty=$('noSearchResults');
+ if(!empty){empty=document.createElement('div');empty.id='noSearchResults';empty.className='card';empty.style.cssText='text-align:center;display:none;margin:20px auto;max-width:1050px';empty.innerHTML='<h3>🔎 No tool found</h3><p class="desc">Try another keyword, such as PDF, image, calculator, text, QR, password or phone.</p>';
+   const grid=document.querySelector('main .grid'); if(grid&&grid.parentNode) grid.parentNode.insertBefore(empty,grid.nextSibling);
+ }
+ empty.style.display=q&&found===0?'block':'none';
+}
+$('search').addEventListener('input',searchTools);
+$('search').addEventListener('keydown',e=>{if(e.key==='Escape'){e.target.value='';searchTools();e.target.focus()}})
+
+function filterCat(cat){
+ document.querySelectorAll('.tool').forEach(x=>x.classList.toggle('hidden',cat!=='all' && x.dataset.cat!==cat));
+ $('search').value='';
+ const empty=$('noSearchResults'); if(empty) empty.style.display='none';
+}
+function taxCalc(){let a=+$('taxAmt').value,t=+$('taxPct').value,v=a*t/100;$('taxResult').textContent=`Tax: ${v.toFixed(2)} · Total: ${(a+v).toFixed(2)}`}
+function emiCalc(){let P=+$('loan').value,r=(+$('rate').value/100)/12,n=+$('months').value;if(!P||!n){return}$('emiResult').textContent=r?`Estimated monthly EMI: ${(P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1)).toFixed(2)}`:`Monthly payment: ${(P/n).toFixed(2)}`}
+function caseDo(mode){let e=$('caseText'),t=e.value;if(mode==='upper')e.value=t.toUpperCase();else if(mode==='lower')e.value=t.toLowerCase();else e.value=t.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase())}
+function bmiCalc(){let w=+$('weight').value,h=+$('height').value/100;if(!w||!h)return;let b=w/(h*h);let label=b<18.5?'Below 18.5':b<25?'18.5–24.9':b<30?'25–29.9':'30+';$('bmiResult').textContent=`BMI: ${b.toFixed(1)} · Range: ${label}`}
+
+function showPage(page){
+ const info=$('pageInfo'),home=$('homePage');
+ if(page==='home'){info.style.display='none';home.style.display='block';return}
+ home.style.display='none';info.style.display='block';
+ ['about','privacy','contact'].forEach(x=>$(x+'Page').style.display=x===page?'block':'none');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function unitCalc(){let v=+$('unitVal').value,t=$('unitType').value,m={kmmi:.621371,mikm:1.609344,kglb:2.20462,lbkg:.453592};$('unitResult').textContent=(v*m[t]).toFixed(4)}
+function timeCalc(){let h=+$('hrs').value||0,m=+$('mins').value||0;$('timeResult').textContent=`${h} hours ${m} minutes = ${(h*60+m)} total minutes`}
+function cleanTextDo(){let e=$('cleanText');e.value=e.value.split(/\n/).map(x=>x.trim().replace(/\s+/g,' ')).filter(Boolean).join('\n')}
+function markupCalc(){let c=+$('markCost').value,p=+$('markPct').value;$('markResult').textContent=`Selling price: ${(c*(1+p/100)).toFixed(2)}`}
+function downloadText(){let b=new Blob([$('fileText').value],{type:'text/plain'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='easytools-note.txt';a.click();URL.revokeObjectURL(a.href)}
+function dateDiff(){let a=new Date($('dateA').value),b=new Date($('dateB').value);if(isNaN(a)||isNaN(b))return;$('dateResult').textContent=`Difference: ${Math.round(Math.abs(b-a)/86400000)} days`}
+
+/* Temp Mail API integration — Guerrilla Mail, browser/CORS compatible */
+let tmSession = null;
+let tmEmail = "";
+
+async function tmGenerate(){
+  const status = document.getElementById("tmStatus");
+  const address = document.getElementById("tmAddress");
+  const inbox = document.getElementById("tmInbox");
+  status.textContent = "Creating temporary email…";
+  inbox.innerHTML = "";
+  try{
+    const r = await fetch("https://api.guerrillamail.com/ajax.php?f=get_email_address&lang=en");
+    if(!r.ok) throw new Error("API error");
+    const d = await r.json();
+    tmSession = d.sid_token || null;
+    tmEmail = d.email_addr || "";
+    if(!tmSession || !tmEmail) throw new Error("No mailbox returned");
+    address.textContent = tmEmail;
+    status.textContent = "Mailbox created. Refresh the inbox to check for new mail.";
+  }catch(e){
+    status.textContent = "Could not create a mailbox right now. Please try again.";
+  }
+}
+
+async function tmRefresh(){
+  if(!tmSession || !tmEmail){
+    document.getElementById("tmStatus").textContent = "Generate an email first.";
+    return;
+  }
+  const status = document.getElementById("tmStatus");
+  const inbox = document.getElementById("tmInbox");
+  status.textContent = "Checking inbox…";
+  try{
+    const url = "https://api.guerrillamail.com/ajax.php?f=check_email&seq=0&sid_token=" +
+      encodeURIComponent(tmSession);
+    const r = await fetch(url);
+    if(!r.ok) throw new Error("Inbox error");
+    const d = await r.json();
+    const list = Array.isArray(d.list) ? d.list : [];
+    if(!list.length){
+      inbox.innerHTML = '<div class="result">📭 No messages yet.</div>';
+      status.textContent = "Inbox checked — no messages.";
+      return;
+    }
+    inbox.innerHTML = list.map(m =>
+      '<div class="result" style="text-align:left;cursor:pointer;margin-bottom:8px" onclick="tmRead(' +
+      Number(m.mail_id || 0) + ')">' +
+      '<b>From:</b> ' + tmEsc(m.mail_from || "") + '<br>' +
+      '<b>Subject:</b> ' + tmEsc(m.mail_subject || "(No subject)") +
+      '</div>'
+    ).join("");
+    status.textContent = list.length + " message(s) found.";
+  }catch(e){
+    status.textContent = "Inbox could not be refreshed. Please try again.";
+  }
+}
+
+async function tmRead(id){
+  if(!tmSession || !id) return;
+  const inbox = document.getElementById("tmInbox");
+  try{
+    const url = "https://api.guerrillamail.com/ajax.php?f=fetch_email&email_id=" +
+      encodeURIComponent(id) + "&sid_token=" + encodeURIComponent(tmSession);
+    const r = await fetch(url);
+    if(!r.ok) throw new Error("Read error");
+    const d = await r.json();
+    const box = document.createElement("div");
+    box.className = "result";
+    box.style.textAlign = "left";
+    box.innerHTML = "<b>" + tmEsc(d.mail_subject || "(No subject)") +
+      "</b><br><div style='margin-top:8px;white-space:pre-wrap;font-weight:400'>" +
+      tmEsc(d.mail_body || d.mail_excerpt || "(Empty message)") + "</div>";
+    inbox.prepend(box);
+  }catch(e){}
+}
+
+function tmCopy(){
+  if(!tmEmail) return;
+  navigator.clipboard?.writeText(tmEmail).then(()=>{
+    document.getElementById("tmStatus").textContent = "Email copied.";
+  }).catch(()=>{
+    document.getElementById("tmStatus").textContent = "Copy is unavailable; select the email manually.";
+  });
+}
+
+function tmEsc(s){
+  return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+
+
+/* Additive tools: existing tools above are preserved. */
+function copyRaw(v){const el=document.getElementById(v);const text=el?.textContent||el?.value||String(v);if(navigator.clipboard)navigator.clipboard.writeText(text);}
+function genPassword(){let n=Math.max(4,Math.min(100,+$('pwLen').value||16)),o=$('pwOpt').value,sets={letters:'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',numbers:'0123456789',all:'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}'},set=sets[o]||sets.all,out='';for(let i=0;i<n;i++)out+=set[Math.floor(Math.random()*set.length)];$('pwResult').textContent=out}
+function checkPassword(){let p=$('pwCheck').value,s=0;if(p.length>=8)s++;if(p.length>=12)s++;if(/[a-z]/.test(p)&&/[A-Z]/.test(p))s++;if(/\d/.test(p))s++;if(/[^A-Za-z0-9]/.test(p))s++;let a=['Very weak','Weak','Fair','Strong','Very strong'];$('pwStrength').textContent=p?`${a[Math.min(4,s)]} · ${s}/5`:'—'}
+function genUUID(){let v=crypto.randomUUID?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{let r=Math.random()*16|0,v=c==='x'?r:(r&3|8);return v.toString(16)});$('uuidResult').textContent=v}
+async function makeHash(){let data=new TextEncoder().encode($('hashText').value),buf=await crypto.subtle.digest('SHA-256',data);$('hashResult').textContent=Array.from(new Uint8Array(buf),b=>b.toString(16).padStart(2,'0')).join('')}
+function formatJSON(){try{$('jsonResult').textContent=JSON.stringify(JSON.parse($('jsonText').value),null,2)}catch(e){$('jsonResult').textContent='Invalid JSON: '+e.message}}
+function b64Encode(){try{$('b64Result').textContent=btoa(unescape(encodeURIComponent($('b64Text').value)))}catch(e){$('b64Result').textContent='Encoding error'}}
+function b64Decode(){try{$('b64Result').textContent=decodeURIComponent(escape(atob($('b64Text').value)))}catch(e){$('b64Result').textContent='Invalid Base64'}}
+function urlEncodeDo(){$('urlResult').textContent=encodeURIComponent($('urlText').value)}
+function urlDecodeDo(){try{$('urlResult').textContent=decodeURIComponent($('urlText').value)}catch(e){$('urlResult').textContent='Invalid encoded URL'}}
+function makeSlug(){$('slugResult').textContent=$('slugText').value.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
+function unixConvert(){let v=$('unixText').value.trim(),d=v?(new Date(Number(v)*(String(v).length<=10?1000:1))):new Date();$('unixResult').textContent=isNaN(d)?'Invalid timestamp':`Unix: ${Math.floor(d.getTime()/1000)} · ${d.toISOString()}`}
+function convertTZ(){let v=$('tzDate').value;if(!v){$('tzResult').textContent='Select a date and time.';return}let d=new Date(v);$('tzResult').textContent=isNaN(d)?'Invalid date':`UTC: ${d.toISOString()} · Selected zone: ${$('tzZone').value}`}
+function randomNumber(){let a=+$('rndMin').value,b=+$('rndMax').value;if(a>b)[a,b]=[b,a];$('rndResult').textContent=Math.floor(Math.random()*(b-a+1))+a}
+function loadScript(src){return new Promise((res,rej)=>{if(window.PDFLib)return res();let s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
+function downloadBlob(blob,name){let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+async function mergePDFs(){let fs=[...$('pdfMergeFiles').files];if(!fs.length)return;$('pdfMergeResult').textContent='Merging…';try{await loadScript('https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js');let out=await PDFLib.PDFDocument.create();for(let f of fs){let doc=await PDFLib.PDFDocument.load(await f.arrayBuffer());let pages=await out.copyPages(doc,doc.getPageIndices());pages.forEach(p=>out.addPage(p))}downloadBlob(new Blob([await out.save()],{type:'application/pdf'}),'merged.pdf');$('pdfMergeResult').textContent='Merged PDF downloaded.'}catch(e){$('pdfMergeResult').textContent='Could not process PDFs.'}}
+function parsePages(s,max){let set=new Set();s.split(',').map(x=>x.trim()).filter(Boolean).forEach(x=>{if(x.includes('-')){let[a,b]=x.split('-').map(Number);for(let i=Math.min(a,b);i<=Math.max(a,b);i++)if(i>=1&&i<=max)set.add(i-1)}else{let n=Number(x);if(n>=1&&n<=max)set.add(n-1)}});return [...set].sort((a,b)=>a-b)}
+async function splitPDF(){let f=$('pdfSplitFile').files[0],spec=$('pdfPages').value;if(!f)return;$('pdfSplitResult').textContent='Processing…';try{await loadScript('https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js');let doc=await PDFLib.PDFDocument.load(await f.arrayBuffer()),idx=parsePages(spec,doc.getPageCount());if(!idx.length)throw 0;let out=await PDFLib.PDFDocument.create();(await out.copyPages(doc,idx)).forEach(p=>out.addPage(p));downloadBlob(new Blob([await out.save()],{type:'application/pdf'}),'split.pdf');$('pdfSplitResult').textContent='Selected pages downloaded.'}catch(e){$('pdfSplitResult').textContent='Could not process selected pages.'}}
+async function compressPDF(){let f=$('pdfCompressFile').files[0];if(!f)return;$('pdfCompressResult').textContent='Processing…';try{await loadScript('https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js');let doc=await PDFLib.PDFDocument.load(await f.arrayBuffer()),out=await PDFLib.PDFDocument.create();(await out.copyPages(doc,doc.getPageIndices())).forEach(p=>out.addPage(p));downloadBlob(new Blob([await out.save({useObjectStreams:true})],{type:'application/pdf'}),'compressed.pdf');$('pdfCompressResult').textContent='Processed PDF downloaded. Note: image-heavy PDFs may not shrink much.'}catch(e){$('pdfCompressResult').textContent='Could not process PDF.'}}
+function readImg(file,cb){let r=new FileReader();r.onload=e=>{let im=new Image();im.onload=()=>cb(im);im.src=e.target.result};r.readAsDataURL(file)}
+function cropImage(){let f=$('cropFile').files[0];if(!f)return;readImg(f,im=>{let x=Math.max(0,+$('cropX').value||0),y=Math.max(0,+$('cropY').value||0),w=+$('cropW').value||im.width-x,h=+$('cropH').value||im.height-y,c=document.createElement('canvas');x=Math.min(x,im.width-1);y=Math.min(y,im.height-1);w=Math.min(w,im.width-x);h=Math.min(h,im.height-y);c.width=w;c.height=h;c.getContext('2d').drawImage(im,x,y,w,h,0,0,w,h);c.toBlob(b=>downloadBlob(b,'cropped.png'),'image/png');$('cropResult').textContent='Cropped image downloaded.'})}
+function removeBg(){let f=$('bgFile').files[0];if(!f)return;readImg(f,im=>{let c=document.createElement('canvas');c.width=im.width;c.height=im.height;let x=c.getContext('2d');x.drawImage(im,0,0);let d=x.getImageData(0,0,c.width,c.height),p=d.data;for(let i=0;i<p.length;i+=4){if(p[i]>245&&p[i+1]>245&&p[i+2]>245)p[i+3]=0}x.putImageData(d,0,0);c.toBlob(b=>downloadBlob(b,'background-removed.png'),'image/png');$('bgResult').textContent='Simple background removed. White/near-white areas were made transparent.'})}
+function makeWA(){let p=$('waPhone').value.replace(/\D/g,''),m=$('waMsg').value.trim();if(!p){$('waResult').textContent='Enter a phone number.';return}let u='https://wa.me/'+p+(m?'?text='+encodeURIComponent(m):'');$('waResult').innerHTML='<a href="'+u+'" target="_blank" rel="noopener">'+u+'</a>'}
+function showColor(){$('colorResult').textContent=$('colorPick').value.toUpperCase()}
+
+
+const phoneCountryData=[];
+const phoneCountryFallback=[
+  ['Pakistan','PK','+92'],['United States','US','+1'],['Canada','CA','+1'],['United Kingdom','GB','+44'],['India','IN','+91'],['Australia','AU','+61'],['Germany','DE','+49'],['France','FR','+33'],['Italy','IT','+39'],['Spain','ES','+34'],['Netherlands','NL','+31'],['Turkey','TR','+90'],['United Arab Emirates','AE','+971'],['Saudi Arabia','SA','+966'],['Qatar','QA','+974'],['Kuwait','KW','+965'],['Bahrain','BH','+973'],['Oman','OM','+968'],['Bangladesh','BD','+880'],['Indonesia','ID','+62'],['Malaysia','MY','+60'],['Singapore','SG','+65'],['Philippines','PH','+63'],['Thailand','TH','+66'],['Vietnam','VN','+84'],['Japan','JP','+81'],['South Korea','KR','+82'],['Brazil','BR','+55'],['Mexico','MX','+52'],['South Africa','ZA','+27'],['Nigeria','NG','+234'],['Egypt','EG','+20'],['Kenya','KE','+254'],['Ukraine','UA','+380'],['Poland','PL','+48'],['Sweden','SE','+46'],['Norway','NO','+47'],['Denmark','DK','+45'],['Finland','FI','+358'],['Switzerland','CH','+41'],['Austria','AT','+43']
+];
+function phoneEsc(v){return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+function phoneSlug(v){return String(v||'').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');}
+function renderPhoneCountries(){
+  const sel=document.getElementById('phoneCountry'); if(!sel)return;
+  const q=(document.getElementById('phoneCountrySearch')?.value||'').trim().toLowerCase();
+  const arr=phoneCountryData.filter(x=>!q || (x.name+' '+x.cca2+' '+x.calling).toLowerCase().includes(q));
+  sel.innerHTML=arr.map((x,i)=>`<option value="${phoneEsc(x.cca2)}">${phoneEsc(x.name)} — ${phoneEsc(x.calling)}</option>`).join('') || '<option>No country found</option>';
+  const first=arr[0];
+  document.getElementById('phoneCountryInfo').innerHTML=first?`<b>${phoneEsc(first.name)}</b> · ISO: ${phoneEsc(first.cca2)} · Calling code: <b>${phoneEsc(first.calling)}</b> · ${arr.length} matching country/countries`:'No matching country.';
+}
+function filterPhoneCountries(){renderPhoneCountries();}
+async function loadPhoneCountries(){
+  const info=document.getElementById('phoneCountryInfo'); info.textContent='Loading all country calling codes…';
+  try{
+    const r=await fetch('https://restcountries.com/v3.1/all?fields=name,cca2,idd');
+    if(!r.ok)throw new Error('country api');
+    const data=await r.json();
+    phoneCountryData.length=0;
+    data.forEach(x=>{
+      const root=x.idd?.root||''; const sufs=x.idd?.suffixes||[];
+      const calling=sufs.length===1?root+sufs[0]:root;
+      if(x.name?.common && x.cca2 && calling) phoneCountryData.push({name:x.name.common,cca2:x.cca2,calling});
+    });
+    phoneCountryData.sort((a,b)=>a.name.localeCompare(b.name)); renderPhoneCountries();
+  }catch(e){
+    phoneCountryData.length=0; phoneCountryFallback.forEach(x=>phoneCountryData.push({name:x[0],cca2:x[1],calling:x[2]}));
+    renderPhoneCountries(); info.innerHTML='Live country list unavailable; showing a built-in country list. You can refresh later.';
+  }
+}
+function openPhoneProvider(){
+  const service=document.getElementById('phoneService').value;
+  const c=document.getElementById('phoneCountry')?.value||'';
+  const map={facebook:'facebook',instagram:'instagram',tiktok:'tiktok',whatsapp:'whatsapp',telegram:'telegram',google:'google',microsoft:'microsoft',discord:'discord',x:'twitter',other:'other'};
+  const url='https://5sim.net/';
+  window.open(url,'_blank','noopener');
+  document.getElementById('fiveSimResult').textContent=`Provider opened for ${service} · country ISO ${c}. Select the exact country/service there because live availability changes.`;
+}
+function saveFiveSimKey(){
+  const k=document.getElementById('fiveSimKey').value.trim();
+  if(!k){localStorage.removeItem('easytools_5sim_key');document.getElementById('fiveSimResult').textContent='API key removed from this browser.';return;}
+  localStorage.setItem('easytools_5sim_key',k); document.getElementById('fiveSimResult').textContent='5SIM API key saved locally in this browser.';
+}
+async function fiveSimRequest(path,opts={}){
+  const key=document.getElementById('fiveSimKey').value.trim()||localStorage.getItem('easytools_5sim_key')||'';
+  if(!key)throw new Error('Add your 5SIM API key first.');
+  const r=await fetch('https://5sim.net/api/v1/user'+path,{...opts,headers:{...(opts.headers||{}),'Authorization':'Bearer '+key,'Accept':'application/json'}});
+  const t=await r.text(); let d; try{d=JSON.parse(t)}catch(_){d=t}
+  if(!r.ok)throw new Error(typeof d==='string'?d:(d?.message||'Provider request failed'));
+  return d;
+}
+async function checkFiveSimBalance(){
+  const out=document.getElementById('fiveSimResult'); out.textContent='Checking 5SIM balance…';
+  try{const d=await fiveSimRequest('/profile'); out.textContent=`Balance: ${d.balance??d?.balance_usd??'available'} ${d.currency||''}`;}
+  catch(e){out.textContent='5SIM balance check failed: '+e.message+' (A static GitHub page may be blocked by provider CORS; use the provider dashboard or a server-side proxy.)';}
+}
+function selectedFiveSimCountry(){
+  const iso=document.getElementById('phoneCountry')?.value||''; const x=phoneCountryData.find(v=>v.cca2===iso); return x||null;
+}
+async function requestFiveSimNumber(){
+  const out=document.getElementById('fiveSimResult'); const c=selectedFiveSimCountry(); const service=document.getElementById('phoneService').value;
+  if(!c){out.textContent='Select a country first.';return;}
+  const fiveCountryMap={PK:'pakistan',US:'usa',CA:'canada',GB:'england',IN:'india',AU:'australia',DE:'germany',FR:'france',IT:'italy',ES:'spain',NL:'netherlands',TR:'turkey',AE:'unitedarabemirates',SA:'saudiarabia',QA:'qatar',KW:'kuwait',BH:'bahrain',OM:'oman',BD:'bangladesh',ID:'indonesia',MY:'malaysia',SG:'singapore',PH:'philippines',TH:'thailand',VN:'vietnam',JP:'japan',KR:'korea',BR:'brazil',MX:'mexico',ZA:'southafrica',NG:'nigeria',EG:'egypt',KE:'kenya',UA:'ukraine',PL:'poland',SE:'sweden',NO:'norway',DK:'denmark',FI:'finland',CH:'switzerland',AT:'austria'};
+  const country=fiveCountryMap[c.cca2]||phoneSlug(c.name);
+  out.textContent='Requesting a temporary number…';
+  try{
+    // 5SIM API needs the provider's current country/operator/product names. Operator=any is commonly supported by the API.
+    const d=await fiveSimRequest(`/buy/activation/${encodeURIComponent(country)}/any/${encodeURIComponent(service)}`);
+    const num=d.phone||d.number||'Number returned'; const id=d.id||d.order_id||'';
+    out.innerHTML=`<b>Number:</b> ${phoneEsc(num)}<br><b>Country:</b> ${phoneEsc(c.name)} ${phoneEsc(c.calling)}<br><b>Order:</b> ${phoneEsc(id)}<br><span class="muted">Use the provider's order/SMS endpoint to read the incoming SMS. If the service name or country is not supported, choose it directly on 5SIM.</span>`;
+  }catch(e){out.textContent='Number request failed: '+e.message+' — check your 5SIM balance, service/country availability, API permissions, and browser CORS.';}
+}
+(function(){const k=localStorage.getItem('easytools_5sim_key');if(k&&document.getElementById('fiveSimKey'))document.getElementById('fiveSimKey').value=k;loadPhoneCountries();})();
+
+function loadFeedback(){
+ const box=$("feedbackList"); if(!box)return;
+ const arr=JSON.parse(localStorage.getItem("easytools_feedback")||"[]");
+ box.innerHTML=arr.length?arr.map(x=>`<div class="invoice-output"><strong>${x.name||"Anonymous"}</strong> · ${"★".repeat(+x.rating)}<br>${escapeHtml(x.text)}<div class="tip">${x.date}</div></div>`).join(""):"<div class="tip">No reviews yet. Be the first to share feedback.</div>";
+}
+function escapeHtml(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));}
+function submitFeedback(){
+ const text=$("feedbackText").value.trim(); if(!text){$("feedbackResult").textContent="Please write your feedback first.";return;}
+ const arr=JSON.parse(localStorage.getItem("easytools_feedback")||"[]");
+ arr.unshift({name:$("feedbackName").value.trim(),rating:$("feedbackRating").value,text,date:new Date().toLocaleString()});
+ localStorage.setItem("easytools_feedback",JSON.stringify(arr.slice(0,20)));
+ $("feedbackText").value=""; $("feedbackResult").textContent="Thank you! Your feedback was saved on this device."; loadFeedback();
+}
+function clearFeedback(){$("feedbackName").value="";$("feedbackText").value="";$("feedbackRating").value="5";$("feedbackResult").textContent="";}
+loadFeedback();
+</script>
+
+<section class="tool-card" data-category="Files" id="tempPhoneTool">
+  <div class="tool-icon">📱</div>
+  <h3>Temporary Phone Numbers</h3>
+  <p class="muted">Country name + calling code list, with temporary SMS-number provider connection.</p>
+  <div class="tool-grid">
+    <div>
+      <label>Search country</label>
+      <input id="phoneCountrySearch" placeholder="Pakistan, USA, +92..." oninput="filterPhoneCountries()">
+    </div>
+    <div>
+      <label>Country</label>
+      <select id="phoneCountry"></select>
+    </div>
+    <div>
+      <label>Service</label>
+      <select id="phoneService">
+        <option value="facebook">Facebook</option>
+        <option value="instagram">Instagram / Threads</option>
+        <option value="tiktok">TikTok / Douyin</option>
+        <option value="whatsapp">WhatsApp</option>
+        <option value="telegram">Telegram</option>
+        <option value="google">Google / YouTube</option>
+        <option value="microsoft">Microsoft</option>
+        <option value="discord">Discord</option>
+        <option value="x">X / Twitter</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+  </div>
+  <div class="tool-actions" style="margin-top:12px">
+    <button class="btn primary" onclick="openPhoneProvider()">Open Provider</button>
+    <button class="btn" onclick="loadPhoneCountries()">Refresh Countries</button>
+  </div>
+  <div class="result" id="phoneCountryInfo" style="margin-top:12px;text-align:left">Loading country calling codes…</div>
+  <div style="margin-top:14px;padding:14px;border:1px solid var(--border);border-radius:12px">
+    <b>5SIM API connection</b>
+    <p class="muted" style="margin:6px 0 10px">Optional: enter your own 5SIM API key to connect the provider. The key is stored only in this browser.</p>
+    <input id="fiveSimKey" type="password" placeholder="5SIM API key">
+    <div class="tool-actions" style="margin-top:10px">
+      <button class="btn" onclick="saveFiveSimKey()">Save Key</button>
+      <button class="btn" onclick="checkFiveSimBalance()">Check Balance</button>
+      <button class="btn primary" onclick="requestFiveSimNumber()">Request Number</button>
+    </div>
+    <div class="result" id="fiveSimResult" style="margin-top:10px;text-align:left">No provider request made.</div>
+  </div>
+  <p class="muted" style="margin-top:12px;font-size:.86em">Use temporary numbers only for legitimate testing or verification where the service permits them. Availability and SMS delivery depend on the provider. Do not use them to evade platform limits or abuse accounts.</p>
+</section>
+</body></html>
